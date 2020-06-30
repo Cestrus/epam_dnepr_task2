@@ -9,7 +9,7 @@ export class Controller{
     }
 
     sendForm(str){
-        // return this.model.sendForm(str);
+        return this.model.sendForm(str);
     }
 
     checkPostTitle(str){

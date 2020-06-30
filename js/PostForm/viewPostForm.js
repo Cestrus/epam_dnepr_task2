@@ -12,11 +12,11 @@ export class ViewPostForm{
 		this.postDescription = document.querySelector('.modalPostForm__postDescriptionBox textarea');
 		this.postQuote = document.querySelector('.modalPostForm__postQuoteBox textarea');
 
-		// this.postDescription.addEventListener('keyup', this.activePostQuote.bind(this));
+		this.postDescription.addEventListener('keyup', this.activePostQuote.bind(this));
 		
         document.querySelector('.btn--postForm-submit').addEventListener('click', this.clickSendForm.bind(this));
 		document.querySelector('.btn--postForm-quit').addEventListener('click', this.quitModalWindow.bind(this));
-		// this.renderTooltip();
+		this.renderTooltip();
     }
 
     renderForm(){
@@ -61,45 +61,45 @@ export class ViewPostForm{
 				<input type="submit" value="Send" class="btn btn--postForm-submit">
 			</div>
 			<div class="modalPostForm__btnBoxRight">
-			<input type="button" value="Quit" class="btn btn--postForm-quit">
+				<input type="button" value="Quit" class="btn btn--postForm-quit">
 			</div>
 		</form>`
     }
 
 	renderTooltip(){
-		// let tooltip = document.createElement('div');
-		// tooltip.innerHTML = `
-		// 	<ul>
-		// 		<li> title can contain letters and these symbols ! : - ? . , </li>
-		// 		<li> title length must be more than 2 characters but less than 20 </li>
-		// 		<li> title must start with an uppercase letter </li>
-		// 	</ul>
-		// `
-		// tooltip.classList.add('tooltip');
-		// this.postTitle.appendChild(tooltip);
+		let tooltip = document.createElement('div');
+		tooltip.innerHTML = `
+			<ul>
+				<li> title can contain letters and these symbols ! : - ? . , </li>
+				<li> title length must be more than 2 characters but less than 20 </li>
+				<li> title must start with an uppercase letter </li>
+			</ul>
+		`
+		tooltip.classList.add('tooltip');
+		this.postTitle.appendChild(tooltip);
 
-		// this.postTitleInput.addEventListener('mouseover', () => {
-		// 	tooltip.classList.add('tooltip--visible');
-		// });
-		// this.postTitleInput.addEventListener('mouseout', () => {
-		// 	tooltip.classList.remove('tooltip--visible');			
-		// });
+		this.postTitleInput.addEventListener('mouseover', () => {
+			tooltip.classList.add('tooltip--visible');
+		});
+		this.postTitleInput.addEventListener('mouseout', () => {
+			tooltip.classList.remove('tooltip--visible');			
+		});
 	}
 
-	// renderWrongTitle(){
-	// 	let alert = document.createElement('div');
-	// 	alert.classList.add('alert');
-	// 	this.postTitle.appendChild(alert);		
-	// }
+	renderWrongTitle(){
+		let alert = document.createElement('div');
+		alert.classList.add('alert');
+		this.postTitle.appendChild(alert);		
+	}
 
 	activePostQuote(){
-		// let postDescription = this.postDescription.value;
-		// postDescription = postDescription.trim()
-		// if(postDescription !== ''){			
-		// 	this.postQuote.removeAttribute('disabled');
-		// } else {
-		// 	this.postQuote.setAttribute('disabled', 'true');
-		// }
+		let postDescription = this.postDescription.value;
+		postDescription = postDescription.trim()
+		if(postDescription !== ''){			
+			this.postQuote.removeAttribute('disabled');
+		} else {
+			this.postQuote.setAttribute('disabled', 'true');
+		}
 	}
 
 	clickSendForm(){		
@@ -111,18 +111,25 @@ export class ViewPostForm{
 		// 	document.querySelector('.alert').remove();
 		// 	document.querySelector('body').style.overflow = 'visible';
 		// }
-	
 	}
 
 	quitModalWindow(){
         this.form.classList.remove('modalPostForm--visible');
 		this.overlayModal.classList.remove('overlayModal--visible');
 		document.querySelector('body').style.overflow = 'visible';
-		// this.postTitleInput.value = '';
-		// if (document.querySelector('.alert')) {
-		// 	document.querySelector('.alert').remove();
-		// }
-    }
+		this.resetForm();
+	}
+	
+	resetForm(){
+		[...this.form.elements].forEach(element => {
+			if(element.value !== 'Send' && element.value !== 'Quit'){
+				element.value = '';
+			}			
+		});
+		if (document.querySelector('.alert')) {
+			document.querySelector('.alert').remove();
+		}
+	}
 
 
 
