@@ -1,27 +1,30 @@
 export class ViewPostForm{
 
-    constructor(sendForm, checkPostTitle){
-        this.sendForm = sendForm;
-		// this.checkPostTitle = checkPostTitle;
-		this.containerForm = document.querySelector('.container-modalPostForm');
+    constructor(sendForm, isValidSigns,  addNewPost){
+		this.sendForm = sendForm;
+		this.isValidSigns = isValidSigns;
+		this.addNewPost = addNewPost;
+		
 		this.renderForm();
-        this.form = document.querySelector('.modalPostForm');
+		this.form = document.querySelector('.modalPostForm');
         this.overlayModal = document.querySelector('.overlayModal');
 		this.postTitle = document.querySelector('.modalPostForm__titlePostBox');		
 		this.postTitleInput = document.querySelector('.modalPostForm__titlePostBox input');		
 		this.postDescription = document.querySelector('.modalPostForm__postDescriptionBox textarea');
 		this.postQuote = document.querySelector('.modalPostForm__postQuoteBox textarea');
-
-		this.postDescription.addEventListener('keyup', this.activePostQuote.bind(this));
-		
-        document.querySelector('.btn--postForm-submit').addEventListener('click', this.clickSendForm.bind(this));
-		document.querySelector('.btn--postForm-quit').addEventListener('click', this.quitModalWindow.bind(this));
 		this.renderTooltip();
+
+
+		// EVENTS
+		this.form.addEventListener('submit', this.onSubmit.bind(this));
+		// document.querySelector('.btn--postForm-submit').addEventListener('click', this.onSubmit.bind(this));
+		this.postTitleInput.addEventListener('input', this.checkTitle.bind(this));
+		document.querySelector('.btn--postForm-quit').addEventListener('click', this.quitModalWindow.bind(this));
     }
 
     renderForm(){
-        this.containerForm.innerHTML = `
-		<form class="modalPostForm" name="post">
+        document.querySelector('.container-modalPostForm').innerHTML = `
+		<form class="modalPostForm" name="post" >
 			<div class="modalPostForm__title">
 				<p>FILL THE FORM</p>
 			</div>
@@ -35,27 +38,27 @@ export class ViewPostForm{
 			</div>
 			<div class="modalPostForm__imgLinkBox">
 				<label for="imgLinkPostForm">Image link: </label>
-				<input type="text" class="modalPostForm__input modalPostForm__input--imgLink" id="imgLinkPostForm">
+				<input type="text" class="modalPostForm__input modalPostForm__input--imgLink" id="imgLinkPostForm" required>
 			</div>
 			<div class="modalPostForm__titlePostBox">
 				<label for="titlePostForm">Title: </label>
-				<input type="text" class="modalPostForm__input modalPostForm__input--titlePost " id="titlePostForm">
+				<input type="text" class="modalPostForm__input modalPostForm__input--titlePost " id="titlePostForm" required minlength="2" maxlength="20">
 			</div>
 			<div class="modalPostForm__authorBox">
 				<label for="authorPostForm">Author: </label>
-				<input type="text" class="modalPostForm__input modalPostForm__input--author" id="authorPostForm">
+				<input type="text" class="modalPostForm__input modalPostForm__input--author" id="authorPostForm" required>
 			</div>
 			<div class="modalPostForm__dateBox">
 				<label for="datePostForm">Date: </label>
-				<input type="date" class="modalPostForm__input modalPostForm__input--date" id="datePostForm">
+				<input type="date" class="modalPostForm__input modalPostForm__input--date" id="datePostForm" required>
 			</div>
 			<div class="modalPostForm__postDescriptionBox">
 				<label for="postDescriptionPostForm">Post description</label>
-				<textarea class="modalPostForm__textarea--postDescription" name="" id="postDescriptionPostForm" ></textarea>
+				<textarea class="modalPostForm__textarea--postDescription" name="" id="postDescriptionPostForm" required></textarea>
 			</div>
 			<div class="modalPostForm__postQuoteBox">
 				<label for="postQuotePostForm">Post quote</label>
-				<textarea class="modalPostForm__textarea--postQuote" name="" id="postQuotePostForm" disabled></textarea>
+				<textarea class="modalPostForm__textarea--postQuote" name="" id="postQuotePostForm" required></textarea>
 			</div>
 			<div class="modalPostForm__btnBoxLeft">
 				<input type="submit" value="Send" class="btn btn--postForm-submit">
@@ -86,31 +89,46 @@ export class ViewPostForm{
 		});
 	}
 
-	renderWrongTitle(){
+	renderWrongTitleSign(){
 		let alert = document.createElement('div');
-		alert.classList.add('alert');
+		alert.classList.add('alertSign');
 		this.postTitle.appendChild(alert);		
 	}
 
-	activePostQuote(){
-		let postDescription = this.postDescription.value;
-		postDescription = postDescription.trim()
-		if(postDescription !== ''){			
-			this.postQuote.removeAttribute('disabled');
-		} else {
-			this.postQuote.setAttribute('disabled', 'true');
-		}
+	renderSendMessegeWindow(message){
+		let sendWindow = document.createElement('div');
+		sendWindow.innerHTML = `
+			<p>${message}</p>
+			<button class='btn btn--sendWindow'>OK</button>
+		`;
+		sendWindow.classList.add('sendWindow');
+		document.body.appendChild(sendWindow);
+		document.querySelector('.btn--sendWindow').addEventListener('click', () => {
+			console.log('click into renderSentWindow');
+			sendWindow.remove();
+		})
 	}
 
-	clickSendForm(){		
-		// if(!this.sendForm(this.postTitleInput.value)){	
-		// 	if(!document.querySelector('.alert')){
-		// 		this.renderWrongTitle();
-		// 	}
-		// } else {
-		// 	document.querySelector('.alert').remove();
-		// 	document.querySelector('body').style.overflow = 'visible';
-		// }
+	checkTitle(){
+		if(!this.isValidSigns(this.postTitleInput.value)){
+			if(!document.querySelector('.alertSign')){
+				this.renderWrongTitleSign();
+			}
+		} else {
+			if(document.querySelector('.alertSign')){
+				document.querySelector('.alertSign').remove();
+			}
+		}
+	}
+	
+	onSubmit(event){
+		event.preventDefault();
+				
+		if(!document.querySelector('.alertSign')){	
+			this.sendForm(event);		
+			this.form.classList.remove('modalPostForm--visible');
+			this.resetForm();			 	
+		}	
 	}
 
 	quitModalWindow(){
@@ -126,8 +144,8 @@ export class ViewPostForm{
 				element.value = '';
 			}			
 		});
-		if (document.querySelector('.alert')) {
-			document.querySelector('.alert').remove();
+		if (document.querySelector('.alertSign')) {
+			document.querySelector('.alertSign').remove();
 		}
 	}
 

@@ -5170,8 +5170,7 @@ input:active, input:hover, input:focus {
 
 .blog-head {
   position: relative;
-  background-color: #fff;
-  z-index: 30; }
+  background-color: #fff; }
 
 .row--blog-title, .row--blog-search {
   margin-left: 0px;
@@ -5795,14 +5794,14 @@ input:active, input:hover, input:focus {
 .modalPostForm {
   position: absolute;
   display: grid;
-  grid-template-areas: 'titlePostForm  titlePostForm' 'postType       author' 'imgLink        postTitle'  'date           postDescription'  'postQuote      postQuote' 'btnSubmit      btnQuit';
-  grid-template-rows: repeat(4, 50px) 1fr 50px;
+  grid-template-areas: 'titlePostForm    titlePostForm' 'postType         author' 'imgLink          postTitle'  '.                date'  'postDescription  postDescription' 'postQuote        postQuote' 'btnSubmit        btnQuit';
+  grid-template-rows: repeat(4, 50px) 1.4fr 0.6fr 50px;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
-  width: 800px;
-  height: 600px;
-  top: calc(50vh - 300px);
-  left: -800px;
+  grid-gap: 10px;
+  width: 1024px;
+  height: 768px;
+  top: calc(50vh - 384px);
+  left: -1024px;
   margin: 0 auto;
   border: 1px solid #4D4949;
   border-radius: 5px;
@@ -5818,7 +5817,7 @@ input:active, input:hover, input:focus {
     opacity: 1;
     visibility: visible;
     transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transform: translateX(calc(50vw + 400px)); }
+    transform: translateX(calc(50vw + 512px)); }
   .modalPostForm__title {
     grid-area: titlePostForm;
     border-bottom: 1px solid #DCDCDC;
@@ -5827,15 +5826,15 @@ input:active, input:hover, input:focus {
     line-height: 50px; }
     .modalPostForm__title p {
       font-weight: bold; }
-  .modalPostForm__postTypeBox, .modalPostForm__imgLinkBox, .modalPostForm__titlePostBox, .modalPostForm__authorBox, .modalPostForm__dateBox, .modalPostForm__postDescriptionBox {
+  .modalPostForm__postTypeBox, .modalPostForm__imgLinkBox, .modalPostForm__titlePostBox, .modalPostForm__authorBox, .modalPostForm__dateBox {
     display: flex;
     justify-content: flex-end; }
-    .modalPostForm__postTypeBox label, .modalPostForm__imgLinkBox label, .modalPostForm__titlePostBox label, .modalPostForm__authorBox label, .modalPostForm__dateBox label, .modalPostForm__postDescriptionBox label {
+    .modalPostForm__postTypeBox label, .modalPostForm__imgLinkBox label, .modalPostForm__titlePostBox label, .modalPostForm__authorBox label, .modalPostForm__dateBox label {
       line-height: 30px;
       margin: 10px; }
-    .modalPostForm__postTypeBox input, .modalPostForm__postTypeBox select, .modalPostForm__imgLinkBox input, .modalPostForm__imgLinkBox select, .modalPostForm__titlePostBox input, .modalPostForm__titlePostBox select, .modalPostForm__authorBox input, .modalPostForm__authorBox select, .modalPostForm__dateBox input, .modalPostForm__dateBox select, .modalPostForm__postDescriptionBox input, .modalPostForm__postDescriptionBox select {
+    .modalPostForm__postTypeBox input, .modalPostForm__postTypeBox select, .modalPostForm__imgLinkBox input, .modalPostForm__imgLinkBox select, .modalPostForm__titlePostBox input, .modalPostForm__titlePostBox select, .modalPostForm__authorBox input, .modalPostForm__authorBox select, .modalPostForm__dateBox input, .modalPostForm__dateBox select {
       width: 60%;
-      margin: auto 10px;
+      margin: auto 20px;
       height: 30px;
       padding-left: 10px;
       border: 1px solid #4D4949;
@@ -5853,9 +5852,14 @@ input:active, input:hover, input:focus {
   .modalPostForm__dateBox {
     grid-area: date; }
   .modalPostForm__postDescriptionBox {
-    grid-area: postDescription; }
+    grid-area: postDescription;
+    display: flex;
+    flex-direction: column; }
+    .modalPostForm__postDescriptionBox label {
+      height: 30px;
+      line-height: 30px;
+      margin: 0 10px 10px; }
     .modalPostForm__postDescriptionBox textarea {
-      width: 60%;
       height: 100%;
       margin: 0px 10px;
       padding: 5px 10px;
@@ -5920,15 +5924,46 @@ input:active, input:hover, input:focus {
   .tooltip--visible {
     visibility: visible; }
 
-.alert {
+.alertSign {
   position: absolute;
   display: block;
   top: 15px;
-  right: 15px;
+  right: 25px;
   width: 20px;
   height: 20px;
   background-image: url("../img/icons/caution.svg");
   background-size: contain;
   background-repeat: no-repeat; }
+
+.sendWindow {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 150px;
+  top: calc(50vh - 50px);
+  left: calc(50vw - 100px);
+  border: 1px solid #4D4949;
+  border-radius: 5px;
+  background-color: #fff;
+  font-family: "Hind Siliguri", sans-serif;
+  color: #4D4949;
+  z-index: 300; }
+  .sendWindow p {
+    height: 50%;
+    align-self: center;
+    margin-top: 20px; }
+
+.btn--sendWindow {
+  width: 100px;
+  background-color: #4D4C49;
+  border-color: #4D4949;
+  color: #FFFFFF;
+  height: 35px;
+  align-self: center;
+  margin-bottom: 20px; }
+  .btn--sendWindow:hover {
+    background-color: #393737;
+    color: #FFFFFF; }
 
 /*# sourceMappingURL=main.css.map */

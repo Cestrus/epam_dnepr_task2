@@ -1,7 +1,8 @@
-import { Controller as ControllerPostForm } from './PostForm/controllerPostForm.js';
+import { ControllerPostForm } from './PostForm/controllerPostForm.js';
+
 
 document.addEventListener('DOMContentLoaded', () => {
-    new ControllerPostForm();
+    new ControllerPostForm();    
 });
 
 document.querySelector('.btn--add-post').addEventListener('click', () => {
