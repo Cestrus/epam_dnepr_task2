@@ -5459,6 +5459,9 @@ input:active, input:hover, input:focus {
 
 .post-main {
   padding-right: 15px; }
+  .post-main__img img {
+    width: 100%;
+    border-radius: 5px; }
   .post-main__audio {
     width: 300px; }
   .post-main__text {
@@ -5965,5 +5968,11 @@ input:active, input:hover, input:focus {
   .btn--sendWindow:hover {
     background-color: #393737;
     color: #FFFFFF; }
+
+.my-spinner {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  z-index: 400; }
 
 /*# sourceMappingURL=main.css.map */

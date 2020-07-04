@@ -84,12 +84,41 @@ components:
       type: object
       required:
         - id
-        - name
+        - postType
+        - author
+        - imgLink
+        - postTitle
+        - date
+        - postDescription
+        - postQuote
       properties:
         id:
           type: string
-          format: uuid
           example: d290f1ee-6c54-4b01-90e6-d701748f0851
-        name:
+        postType:
+          type: string
+          example: video
+        author:
           type: string
           example: Widget Adapter
+        imgLink:
+          type: string
+          example: http:\\www.some_adress_for_img
+        postTitle:
+          type: string
+          example: Zagolovok
+        date:
+          type: string
+          example: 12-06-2020
+        postDescription:
+          type: string
+          example: some discription 
+        postQuote:
+          type: string
+          example: some quote
+          
+
+
+
+          
+        

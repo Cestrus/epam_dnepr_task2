@@ -4,6 +4,16 @@ export class ModelPostForm{
         this.renderSendMessegeWindow = renderSendMessegeWindow;
         this.validSigns = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz .,!?:-';
         this.upperLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        this.objPost = {
+            "id": "", 
+            "postType": "", 
+            "author": "", 
+            "imgLink": "",
+            "postTitle": "", 
+            "date": "", 
+            "postDescription": "", 
+            "postQuote": ""
+        }
     }
 
     isFirstUpper(title){
@@ -34,33 +44,32 @@ export class ModelPostForm{
         return true;
     }
 
-    createRequestBody(event){
-        const postType = event.target.selectPostForm.value;
-        const author = event.target.authorPostForm.value;
-        const imgLink = event.target.imgLinkPostForm.value;
-        const postTitle = event.target.titlePostForm.value;
-        const date = event.target.datePostForm.value;
-        const postDescription = event.target.postDescriptionPostForm.value;
-        const postQuote = event.target.postQuotePostForm.value;
+    createPOSTBody(event){
+        this.objPost.id = + new Date();;
+        this.objPost.postType = event.target.selectPostForm.value;
+        this.objPost.author = event.target.authorPostForm.value;
+        this.objPost.imgLink = event.target.imgLinkPostForm.value;
+        this.objPost.postTitle = event.target.titlePostForm.value;
+        this.objPost.date = event.target.datePostForm.value;
+        this.objPost.postDescription = event.target.postDescriptionPostForm.value;
+        this.objPost.postQuote = event.target.postQuotePostForm.value;
 
-        console.log('form json: ' ,  JSON.stringify({postType, author, imgLink, postTitle, date, postDescription, postQuote}))
-        return JSON.stringify({postType, author, imgLink, postTitle, date, postDescription, postQuote});
+        return JSON.stringify(this.objPost);
     }
 
-    sendRequest(requestBody){
-        const URL = 'http://127.0.0.1:3000/api/register';
+    sendPOST(requestBody){
+        const URL = 'http://127.0.0.1:3000/api/create-article';
 
         fetch(URL, {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json'
             },
-            mode: 'cors', 
-            requestBody
+            body: requestBody
         })
             .then(response => {
                 if(response.ok){
-                    this.renderSendMessegeWindow('Form submitted successfully');                   
+                    this.renderSendMessegeWindow('Form submitted successfully!');
                 }              
             })
             .catch(error => {
@@ -68,8 +77,13 @@ export class ModelPostForm{
             });
     }
 
+    sendObjPost(){
+        return this.objPost;
+    }
+
     sendForm(event){
-        this.sendRequest(this.createRequestBody(event));
+        this.sendPOST(this.createPOSTBody(event));
+        
     }    
 
 

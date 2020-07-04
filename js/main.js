@@ -1,8 +1,12 @@
 import { ControllerPostForm } from './PostForm/controllerPostForm.js';
+import { ControllerPostPage } from './PostPage/controllerPostPage.js';
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    new ControllerPostForm();    
+    new ControllerPostForm();
+    if(window.location.href.indexOf('post.html') != -1){
+        new ControllerPostPage();
+    }  
 });
 
 document.querySelector('.btn--add-post').addEventListener('click', () => {

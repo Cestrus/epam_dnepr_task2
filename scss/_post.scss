@@ -33,6 +33,13 @@
 
 .post-main{
     padding-right: 15px;
+    &__img{
+        img{
+            width: 100%;
+            border-radius: 5px;
+        }
+        
+    }
     &__audio{
         width: 300px;
     }

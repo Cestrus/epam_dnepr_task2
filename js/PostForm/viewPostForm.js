@@ -1,10 +1,8 @@
 export class ViewPostForm{
 
-    constructor(sendForm, isValidSigns,  addNewPost){
+    constructor(sendForm, isValidSigns){
 		this.sendForm = sendForm;
 		this.isValidSigns = isValidSigns;
-		this.addNewPost = addNewPost;
-		
 		this.renderForm();
 		this.form = document.querySelector('.modalPostForm');
         this.overlayModal = document.querySelector('.overlayModal');
@@ -17,7 +15,6 @@ export class ViewPostForm{
 
 		// EVENTS
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
-		// document.querySelector('.btn--postForm-submit').addEventListener('click', this.onSubmit.bind(this));
 		this.postTitleInput.addEventListener('input', this.checkTitle.bind(this));
 		document.querySelector('.btn--postForm-quit').addEventListener('click', this.quitModalWindow.bind(this));
     }
@@ -31,9 +28,9 @@ export class ViewPostForm{
 			<div class="modalPostForm__postTypeBox">
 				<label for="selectPostForm">Select post type: </label>
 				<select class="modalPostForm__select" id="selectPostForm">
-					<option class="modalPostForm__option" value="">text</option>
-					<option class="modalPostForm__option" value="">video</option>
-					<option class="modalPostForm__option" value="">audio</option>
+					<option class="modalPostForm__option" value="text">text</option>
+					<option class="modalPostForm__option" value="video">video</option>
+					<option class="modalPostForm__option" value="audio">audio</option>
 				</select>
 			</div>
 			<div class="modalPostForm__imgLinkBox">
@@ -104,8 +101,8 @@ export class ViewPostForm{
 		sendWindow.classList.add('sendWindow');
 		document.body.appendChild(sendWindow);
 		document.querySelector('.btn--sendWindow').addEventListener('click', () => {
-			console.log('click into renderSentWindow');
 			sendWindow.remove();
+			window.location.href = "./post.html";			
 		})
 	}
 
@@ -124,9 +121,9 @@ export class ViewPostForm{
 	onSubmit(event){
 		event.preventDefault();
 				
-		if(!document.querySelector('.alertSign')){	
-			this.sendForm(event);		
+		if(!document.querySelector('.alertSign')){
 			this.form.classList.remove('modalPostForm--visible');
+			this.sendForm(event);
 			this.resetForm();			 	
 		}	
 	}
@@ -148,9 +145,5 @@ export class ViewPostForm{
 			document.querySelector('.alertSign').remove();
 		}
 	}
-
-
-
-
 
 }
